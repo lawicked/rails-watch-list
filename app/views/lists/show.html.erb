@@ -1,17 +1,28 @@
-<h1> <%= @list.name %></h1>
+<section class="pt-2 text-center">
+  <h1 class="display-4 fw-bold"> <%= @list.name %></h1>
+</section>
 
-<div>
-  <h2>Movies in this list:</h2>
-  <% @list.bookmarks.each do |bookmark| %>
-    <p> <%= bookmark.movie.title %> </p>
-    <p> <%= bookmark.comment %> </p>
-    <%= cl_image_tag @list.photo.key, height: 300, width: 400, crop: :fill %>
-    <%= link_to "Delete", bookmark_path(bookmark), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
-  <% end %>
-</div>
+<section class="py-5">
+  <div class="container my-5">
+      <div class="row justify-content-center gap-4 column-gap-4">
+        <h2 class=text-light> Movies in this list: </h2>
+        <% @list.bookmarks.each do |bookmark| %>
+          <div class="card col-md-4 col-sm-12 my-2" style="width: 18rem;">
+            <%= image_tag bookmark.movie.poster_url, class: "img-fluid my-3 mx-auto ", style: "max-width: 200px;" %>
+            <h5 class="card-title mb-3"> <%= bookmark.movie.title %> </h5>
+            <%= link_to "Delete", bookmark_path(bookmark), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class:"btn btn-outline-dark mb-2" %>
+          </div>
+        <% end %>
+    </div>
+  </div>
+</section>
 
 <div>
   <%= link_to "Add Bookmark", new_list_bookmark_path(@list) %>
+</div>
+
+<div>
+  <%= link_to "Delete List", list_path(@list), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
 </div>
 
 <div>
